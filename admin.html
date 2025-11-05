@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - AutoNext</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+    <div class="chart-container">
+      <canvas id="submissionsChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    async function loadChart() {
+      try {
+        const res = await fetch('/api/submissions');
+        const submissions = await res.json();
+        const dates = {};
+        submissions.forEach(sub => {
+          const date = new Date(sub.date).toDateString();
+          dates[date] = (dates[date] || 0) + 1;
+        });
+        const labels = Object.keys(dates);
+        const data = Object.values(dates);
+
+        const ctx = document.getElementById('submissionsChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Submissions',
+              data: data,
+              borderColor: '#00b4d8',
+              backgroundColor: 'rgba(0, 180, 216, 0.2)',
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      } catch (error) {
+        console.error('Error loading chart:', error);
+      }
+    }
+    loadChart();
+  </script>
+</body>
+</html>

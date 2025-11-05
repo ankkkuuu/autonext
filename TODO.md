@@ -1,0 +1,8 @@
+- [x] Update package.json to include Chart.js
+- [x] Edit index.html: Add theme toggle button, search input, chatbot widget, admin link
+- [x] Edit style.css: Add CSS variables for themes, chatbot styles, admin dashboard styles
+- [x] Edit script.js: Add theme switching logic, search filtering, chatbot functionality
+- [x] Edit server.js: Add /admin route with basic auth and data aggregation for charts
+- [x] Add car models section with Apple-like translucent effects and animations
+- [x] Add purchase service box with Stripe payment gateway integration
+- [x] Test features: Run server and verify each feature works
